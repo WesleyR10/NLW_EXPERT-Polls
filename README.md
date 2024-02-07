@@ -1,23 +1,26 @@
-
 ![cover (1)](https://github.com/WesleyR10/NLW_EXPERT-Polls/assets/115756312/337d46ac-7cb8-479d-8753-690cf4f32b39)
-NLW Expert (Node.js)
+
+### NLW Expert (Node.js)
 A real-time voting system where users can create a poll and other users can cast their votes. The system generates a ranking among the options and updates the votes in real-time.
 
-Requisites
+### Requisites
 Docker;
 Node.js;
-Setup
+
+### Setup
 Clone the repository;
 Install dependencies (npm install);
 Setup PostgreSQL and Redis (docker compose up -d);
 Copy .env.example file (cp .env.example .env);
 Run application (npm run dev);
 Test it! (I personally recommend testing with Hoppscotch).
-HTTP
-POST /polls
+
+### HTTP
+# POST /polls
 Create a new poll.
 
-Request body
+# Request body
+```
 {
   "title": "Qual a melhor linguagem de programação?",
   "options": [
@@ -27,15 +30,20 @@ Request body
     "C#"
   ]
 }
+```
 
-Response body
+# Response body
+```
 {
   "pollId": "194cef63-2ccf-46a3-aad1-aa94b2bc89b0"
 }
-GET /polls/:pollId
+```
+
+# GET /polls/:pollId
 Return data from a single poll.
 
-Response body
+# Response body
+```
 {
 	"poll": {
 		"id": "e4365599-0205-4429-9808-ea1f94062a5f",
@@ -64,18 +72,24 @@ Response body
 		]
 	}
 }
+```
 
-POST /polls/:pollId/votes
+# POST /polls/:pollId/votes
 Add a vote to specific poll.
 
-Request body
+# Request body
+```
 {
   "pollOptionId": "31cca9dc-15da-44d4-ad7f-12b86610fe98"
 }
-WebSockets
+```
+
+### WebSockets
 ws /polls/:pollId/results
-Message
+# Message
+```
 {
   "pollOptionId": "da9601cc-0b58-4395-8865-113cbdc42089",
   "votes": 2
 }
+```
