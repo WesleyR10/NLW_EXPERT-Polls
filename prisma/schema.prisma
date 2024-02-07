@@ -16,5 +16,28 @@ model Poll {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  @@map("polls")
+  options PollOption[]
+  votes   Vote[]
+}
+
+model PollOption {
+  id     String @id @default(uuid())
+  title  String
+  pollId String
+
+  poll  Poll   @relation(fields: [pollId], references: [id])
+  votes Vote[]
+}
+
+model Vote {
+  id           Int      @id @default(autoincrement())
+  sessionId    String
+  pollId       String
+  pollOptionId String
+  createdAt    DateTime @default(now())
+
+  pollOption PollOption @relation(fields: [pollOptionId], references: [id])
+  poll       Poll       @relation(fields: [pollId], references: [id]) // Feito para saber se um user ja votou em uma enquete
+
+  @@unique([sessionId, pollId]) // Um usuario so pode votar 1 vez dentro da enquete
 }
